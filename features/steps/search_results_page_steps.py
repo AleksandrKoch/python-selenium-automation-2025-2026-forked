@@ -12,3 +12,9 @@ def verify_found_results_text(context, search_word):
     assert search_word.lower() in actual_text, \
         f'Expected query not in {context.driver.current_url.lower()}'
 
+
+@when('Add product to the cart')
+def add_product_to_cart(context):
+    context.driver.find_element(By.CSS_SELECTOR, "#addToCartButtonOrTextIdFor17327543").click()
+    context.driver.find_element(By.CSS_SELECTOR, "[data-test='orderPickupButton']").click()
+    sleep(2)

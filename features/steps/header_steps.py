@@ -33,6 +33,13 @@ def verify_sidenav_opened(context):
     sleep(1)
 
 
+
+
+@when('Click on Cart icon in Sidenav')
+def click_cart_icon_sidenav(context):
+    context.driver.find_element(By.XPATH, "//a[text()='View cart & check out']").click()
+    sleep(1)
+
 @then('User clicks Sign in button')
 def verify_sign_in_button(context):
     context.driver.find_element(By.CSS_SELECTOR, "[data-test='accountNav-signIn']").click()
@@ -44,3 +51,10 @@ def verify_top_links_shown(context, expected_amount):
     expected_amount = int(expected_amount) # convert parameter into integer
     links = context.driver.find_elements(*HEADER_LINKS)
     assert len(links) == expected_amount, f'Expected {expected_amount} links, but found {len(links)}'
+
+
+
+
+
+
+

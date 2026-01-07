@@ -10,3 +10,8 @@ def verify_empty_cart_message(context):
     sleep(1)
 
 
+@then('Verify {product} is added to the cart')
+def verify_product_added_to_sidenav_cart(context, product):
+    assert product.lower() in context.driver.find_element(By.XPATH, "//div[@data-test='cartItem-title']/div").text.lower(), \
+        f'Expected product {product} not found in {context.driver.current_url}'
+    sleep(1)
