@@ -33,8 +33,6 @@ def verify_sidenav_opened(context):
     sleep(1)
 
 
-
-
 @when('Click on Cart icon in Sidenav')
 def click_cart_icon_sidenav(context):
     context.driver.find_element(By.XPATH, "//a[text()='View cart & check out']").click()
