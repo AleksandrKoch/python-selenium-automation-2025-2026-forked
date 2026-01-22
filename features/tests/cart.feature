@@ -9,7 +9,7 @@ Feature: Test cases for cart
 
   Scenario: Product is added to the cart
     Given Open Target main page
-    When Search for tea
+    When Search for lipton tea
     And Add product to the cart
     When Click on Cart icon in Sidenav
     Then Verify tea is added to the cart

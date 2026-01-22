@@ -16,7 +16,6 @@ POPULAR_PAGES_HEADER = (By.CSS_SELECTOR, "div[class*='LinkCard_titleCard']")
 @given('Open Target Help page')
 def open_target_main_page(context):
     context.driver.get('https://www.target.com/help')
-    sleep(1)
 
 
 @then('Verify main header is shown')
