@@ -1,42 +1,40 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
+from time import sleep
 
-EMPTY_CART_MSG = (By.CSS_SELECTOR, "[data-test='boxEmptyMsg']")
-CART_ITEM_TITLE = (By.XPATH, "//div[@data-test='cartItem-title']/div")
-ADDED_TO_CART_HEADER = (By.CSS_SELECTOR, "[data-test='modal-drawer-heading']")
 
-@then('Empty cart message is shown')
-def verify_empty_cart_message(context):
-    wait = WebDriverWait(context.driver, 10)
-    cart_empty_element = wait.until(EC.visibility_of_element_located(EMPTY_CART_MSG))
-    actual_text = cart_empty_element.text
-    assert "Your cart is empty" in actual_text, (
-        f"Expected text 'Your cart is empty' not found in '{actual_text}'"
+PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
+TOTAL_TXT = (By.CSS_SELECTOR, "h2 [class*='styles_cart-summary-span']")
+
+
+@when('Open cart page')
+def open_cart(context):
+    context.driver.get('https://www.target.com/cart')
+
+
+@then('Verify cart has {amount} item(s)')
+def verify_cart_items(context, amount):
+    context.driver.wait.until(
+        EC.presence_of_element_located(TOTAL_TXT),
+        message='Subtotal text did not appear'
     )
-    # assert "Your cart is empty" in context.driver.page_source
-    # actual_text = context.driver.find_element(By.CSS_SELECTOR, "[data-test='boxEmptyMsg']").text
-    # assert "Your cart is empty" in actual_text, f"Expected text 'Your cart is empty' not found in {actual_text}"
-    # sleep(1)
-    # Wait until the empty-cart message element is visible
+
+    cart_summary = context.driver.find_element(*TOTAL_TXT).text
+    assert f'{amount} item' in cart_summary, f"Expected {amount} items but got {cart_summary}"
 
 
+@then('Verify product in cart is correct')
+def verify_product(context):
+    product_in_cart = context.driver.find_element(*PRODUCT_NAME).text
+    # print('\nProduct in cart:')
+    # print(product_in_cart)
+    expected = context.product_before_adding
+    assert product_in_cart[:20] == expected[:20],\
+        f'Expected product {expected[:20]} but got {product_in_cart[:20]}'
 
-@then('Verify {product} is added to the cart')
-def verify_product_added_to_sidenav_cart(context, product):
-    wait = WebDriverWait(context.driver, 10)
-    added_message = wait.until(EC.visibility_of_element_located(ADDED_TO_CART_HEADER))
-    assert added_message.text == "Added to cart", (
-        "'Added to cart' message is missing"
 
-    # item_el = wait.until(EC.visibility_of_element_located(CART_ITEM_TITLE))
-    # expected = product.lower()
-    # actual = item_el.text.lower()
-    # assert expected in actual, (
-    #     f"Expected product '{product}' not found in cart item text '{item_el.text}' "
-    #     f"at {context.driver.current_url}"
-    )
-    # assert product.lower() in context.driver.find_element(By.XPATH, "//div[@data-test='cartItem-title']/div").text.lower(), \
-    #     f'Expected product {product} not found in {context.driver.current_url}'
-    # sleep(1)
+@then('Empty Cart message is shown')
+def verify_empty_cart_msg(context):
+    actual_text = context.driver.find_element(By.CSS_SELECTOR, "[data-test='boxEmptyMsg']").text
+    assert 'Your cart is empty' in actual_text, f"Expected 'Your cart is empty' text not in {actual_text}"
