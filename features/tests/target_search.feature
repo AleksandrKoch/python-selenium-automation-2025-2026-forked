@@ -30,5 +30,8 @@ Feature: Tests for search
 #    |non_exist |password122     |this account not found  |
 #    |user123   |incorrect_pass  |this password is not correct  |
 
-
+  Scenario: Verify that user can see product names and images
+    Given Open Target main page
+    When Search for AirPods
+    Then Verify that every product has a name and an image
 
