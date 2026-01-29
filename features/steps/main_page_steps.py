@@ -4,7 +4,7 @@ from behave import given, when, then
 
 @given('Open Target main page')
 def open_target_main_page(context):
-    context.driver.get('https://www.target.com')
+    context.app.main_page.open_main_page()
 
 
 

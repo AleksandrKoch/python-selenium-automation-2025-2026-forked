@@ -4,22 +4,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 from time import sleep
 
-SEARCH_FIELD = (By.ID, 'search')
-SEARCH_ICON = (By.CSS_SELECTOR, "[data-test='@web/Search/SearchButton']")
-CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartIcon']")
+
 HEADER_LINKS = (By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
 
 
 @when('Click on cart icon')
 def click_cart(context):
-    context.driver.find_element(*CART_ICON).click()
+    context.app.header.click_cart()
 
 
 @when('Search for {product}')
 def search_product(context, product):
-    context.driver.find_element(*SEARCH_FIELD).send_keys(product)
-    context.driver.find_element(*SEARCH_ICON).click()
-    sleep(10)
+    context.app.header.search(product)
 
 
 @then('Verify {expected_amount} top header links are shown')
