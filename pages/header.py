@@ -14,5 +14,5 @@ class Header(Page):
         sleep(10)
 
     def click_cart(self):
-        self.click(*self.CART_ICON)
-        # self.wait_until_clickable_click(*self.CART_ICON)
+        # self.click(*self.CART_ICON)
+        self.wait_until_clickable_click(*self.CART_ICON)
