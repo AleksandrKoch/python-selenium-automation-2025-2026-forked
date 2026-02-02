@@ -1,11 +1,11 @@
 # HW3.3
 Feature: Test cases for Sign in functionality
 
-  Scenario: Logged out user can use Sign In functionality
+  Scenario: Logged out user can open Sign In page
     Given Open Target main page
     When User clicks Account button
-    And Sidenav opened
+    And Account menu is opened
     Then User clicks Sign in button
-    And Sign in form opened
+    And Sign in page opened
 
 

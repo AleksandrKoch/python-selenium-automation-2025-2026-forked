@@ -4,6 +4,7 @@ from time import sleep
 from pages.base_page import Page
 
 class Header(Page):
+    ACCOUNT_BUTTON = (By.CSS_SELECTOR, "[data-test='@web/AccountLink']")
     CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartIcon']")
     SEARCH_FIELD = (By.ID, 'search')
     SEARCH_ICON = (By.CSS_SELECTOR, "[data-test='@web/Search/SearchButton']")
@@ -16,3 +17,6 @@ class Header(Page):
     def click_cart(self):
         # self.click(*self.CART_ICON)
         self.wait_until_clickable_click(*self.CART_ICON)
+
+    def click_account(self):
+        self.wait_until_clickable_click(*self.ACCOUNT_BUTTON)
