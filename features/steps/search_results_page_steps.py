@@ -15,24 +15,18 @@ PRODUCT_TITLE = (By.CSS_SELECTOR, "div[title]")
 
 @when('Click on Add to Cart button')
 def click_add_to_cart(context):
-    context.driver.find_element(*ADD_TO_CART_BTN).click()  # always clicks on 1st Add to cart btn
-    context.driver.wait.until(
-        EC.element_to_be_clickable(SIDE_NAV_ADD_TO_CART_BTN),
-        message='Side navigation Add To Cart Btn not clickable'
-    )
+    context.app.search_results_page.click_first_add_to_cart()
+    context.app.add_to_cart_drawer.wait_until_ready()
 
 
 @when('Store product name')
 def store_product_name(context):
-    context.product_before_adding = context.driver.find_element(*SIDE_NAV_PRODUCT_NAME).text
-    # print("Name saved: ")
-    # print(context.product_before_adding)
+    context.product_before_adding = context.app.add_to_cart_drawer.get_product_name()
 
 
 @when('Confirm Add to Cart button from side navigation')
 def side_nav_click_add_to_cart(context):
-    context.driver.find_element(*SIDE_NAV_ADD_TO_CART_BTN).click()
-    sleep(2)
+    context.app.add_to_cart_drawer.confirm_add_to_cart()
 
 
 @then('Search results for {expected_product} are shown')

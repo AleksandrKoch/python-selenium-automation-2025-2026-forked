@@ -4,6 +4,7 @@ from pages.main_page import MainPage
 from pages.search_results_page import SearchResultsPage
 from pages.account_menu import AccountMenu
 from pages.sign_in_page import SignInPage
+from pages.add_to_cart_drawer import AddToCartDrawer
 
 class Application:
 
@@ -14,3 +15,4 @@ class Application:
         self.search_results_page = SearchResultsPage(driver)
         self.account_menu = AccountMenu(driver)
         self.sign_in_page = SignInPage(driver)
+        self.add_to_cart_drawer = AddToCartDrawer(driver)
